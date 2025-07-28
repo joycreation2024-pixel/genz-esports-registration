@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>GEN-Z Esports Tournament</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron&display=swap');
+    body {
+      background: #111;
+      color: #eee;
+      font-family: 'Orbitron', sans-serif;
+      margin: 0;
+      padding: 20px;
+      text-align: center;
+    }
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 30px;
+      color: #0ff;
+      text-shadow:
+        0 0 5px #0ff,
+        0 0 10px #0ff,
+        0 0 20px #0ff,
+        0 0 40px #0ff,
+        0 0 80px #0ff;
+      animation: rgb-neon 5s linear infinite;
+    }
+    @keyframes rgb-neon {
+      0% { text-shadow:
+        0 0 5px #f00,
+        0 0 10px #f00,
+        0 0 20px #f00,
+        0 0 40px #f00,
+        0 0 80px #f00; }
+      33% { text-shadow:
+        0 0 5px #0f0,
+        0 0 10px #0f0,
+        0 0 20px #0f0,
+        0 0 40px #0f0,
+        0 0 80px #0f0; }
+      66% { text-shadow:
+        0 0 5px #00f,
+        0 0 10px #00f,
+        0 0 20px #00f,
+        0 0 40px #00f,
+        0 0 80px #00f; }
+      100% { text-shadow:
+        0 0 5px #f00,
+        0 0 10px #f00,
+        0 0 20px #f00,
+        0 0 40px #f00,
+        0 0 80px #f00; }
+    }
+    form {
+      max-width: 400px;
+      margin: auto;
+      text-align: left;
+    }
+    label {
+      display: block;
+      margin: 12px 0 6px;
+      font-weight: bold;
+    }
+    input[type="text"],
+    input[type="tel"] {
+      width: 100%;
+      padding: 8px;
+      border-radius: 8px;
+      border: 2px solid #555;
+      background: #222;
+      color: #0f0;
+      font-size: 1rem;
+      box-sizing: border-box;
+      transition: border-color 0.3s ease;
+    }
+    input[type="text"]:focus,
+    input[type="tel"]:focus {
+      border-color: #0ff;
+      outline: none;
+      color: #0f0;
+    }
+    .mode-options {
+      margin: 20px 0;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+    .mode-options label {
+      cursor: pointer;
+      padding: 10px 20px;
+      border: 2px solid #0ff;
+      border-radius: 10px;
+      color: #0ff;
+      user-select: none;
+      transition: background-color 0.3s ease;
+    }
+    .mode-options input[type="radio"] {
+      display: none;
+    }
+    .mode-options input[type="radio"]:checked + label {
+      background-color: #0ff;
+      color: #111;
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #111;
+      background: #0ff;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background: #0cc;
+    }
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>GEN-Z Esports</h1>
+
+  <form id="registrationForm" action="https://formsubmit.co/alcysjf@gmail.com" method="POST">
+    <!-- honeypot to prevent spam -->
+    <input type="text" name="_honey" style="display:none" />
+    <!-- disable captcha -->
+    <input type="hidden" name="_captcha" value="false" />
+    <!-- redirect to thank you page (optional) -->
+    <input type="hidden" name="_next" value="https://joycreation2024-pixel.github.io/genz-esports-registration/thankyou.html" />
+
+    <div class="mode-options">
+      <input type="radio" id="solo" name="mode" value="Solo" required>
+      <label for="solo">Solo</label>
+
+      <input type="radio" id="duo" name="mode" value="Duo" required>
+      <label for="duo">Duo</label>
+
+      <input type="radio" id="squad" name="mode" value="Squad" required>
+      <label for="squad">Squad</label>
+    </div>
+
+    <div id="fields-solo-duo" class="hidden">
+      <label for="ffuid">Freefire UID</label>
+      <input type="text" id="ffuid" name="Freefire_UID" placeholder="Enter Freefire UID" />
+
+      <label for="ffname">Freefire ID Name</label>
+      <input type="text" id="ffname" name="Freefire_ID_Name" placeholder="Enter Freefire ID Name" />
+    </div>
+
+    <div id="fields-squad" class="hidden">
+      <label for="teamname">Team Name</label>
+      <input type="text" id="teamname" name="Team_Name" placeholder="Enter Team Name" />
+
+      <label for="mobile">Mobile Number</label>
+      <input type="tel" id="mobile" name="Mobile_Number" placeholder="Enter Mobile Number" />
+    </div>
+
+    <button type="submit">Submit</button>
+  </form>
+
+  <script>
+    const soloDuoFields = document.getElementById('fields-solo-duo');
+    const squadFields = document.getElementById('fields-squad');
+    const form = document.getElementById('registrationForm');
+    const uidInput = document.getElementById('ffuid');
+    const nameInput = document.getElementById('ffname');
+    const teamNameInput = document.getElementById('teamname');
+    const mobileInput = document.getElementById('mobile');
+
+    // Show/hide fields based on mode selection
+    form.mode.forEach(radio => {
+      radio.addEventListener('change', () => {
+        if (radio.value === 'Solo' || radio.value === 'Duo') {
+          soloDuoFields.classList.remove('hidden');
+          squadFields.classList.add('hidden');
+
+          uidInput.required = true;
+          nameInput.required = true;
+
+          teamNameInput.required = false;
+          mobileInput.required = false;
+        } else if (radio.value === 'Squad') {
+          soloDuoFields.classList.add('hidden');
+          squadFields.classList.remove('hidden');
+
+          uidInput.required = true;
+          nameInput.required = true;
+          teamNameInput.required = true;
+          mobileInput.required = true;
+        }
+      });
+    });
+
+    // Add green text color on input
+    [uidInput, nameInput, teamNameInput, mobileInput].forEach(input => {
+      input.addEventListener('input', () => {
+        if (input.value.trim().length > 0) {
+          input.style.color = '#0f0';
+        } else {
+          input.style.color = '';
+        }
+      });
+    });
+
+    // Validate form before submit
+    form.addEventListener('submit', (e) => {
+      const mode = form.mode.value;
+      if ((mode === 'Solo' || mode === 'Duo') && (uidInput.value.trim() === '' || nameInput.value.trim() === '')) {
+        e.preventDefault();
+        alert('Please fill in Freefire UID and Freefire ID Name.');
+      } else if (mode === 'Squad' && (uidInput.value.trim() === '' || nameInput.value.trim() === '' || teamNameInput.value.trim() === '' || mobileInput.value.trim() === '')) {
+        e.preventDefault();
+        alert('Please fill all required fields.');
+      }
+    });
+  </script>
+
+</body>
+</html>
